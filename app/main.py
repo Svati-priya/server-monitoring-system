@@ -24,19 +24,21 @@ def health_check():
 
 @app.get("/metrics")
 def metrics():
-    cpu = get_cpu_usage()
-    memory = get_memory_usage()
-    disk = get_disk_usage()
+    try:
+        cpu = get_cpu_usage()
+        memory = get_memory_usage()
+        disk = get_disk_usage()
 
-    check_cpu_alert(cpu)
-    check_memory_alert(memory)
-    check_disk_alert(disk)
+        return {
+            "cpu_usage": cpu,
+            "memory_usage": memory,
+            "disk_usage": disk
+        }
 
-    return {
-        "cpu_usage": f"{cpu}%",
-        "memory_usage": f"{memory}%",
-        "disk_usage": f"{disk}%"
-    }
+    except Exception as e:
+        return {
+            "error": str(e)
+        }
 
 @app.get("/uptime")
 def uptime():
