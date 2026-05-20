@@ -10,7 +10,11 @@ def get_memory_usage():
     return psutil.virtual_memory().percent
 
 def get_disk_usage():
-    return psutil.disk_usage('/').percent
+    try:
+        usage = psutil.disk_usage('/')
+        return round(usage.percent, 2)
+    except Exception:
+        return 0.0
 
 def get_system_uptime():
     uptime_seconds = time.time() - start_time
