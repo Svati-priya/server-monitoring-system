@@ -8,22 +8,19 @@ from app.monitoring import (
 
 from app.alerts import (
     check_cpu_alert,
-    check_memory_alert
+    check_memory_alert,
+    check_disk_alert
 )
 
 app = FastAPI()
 
 @app.get("/")
 def home():
-    return {
-        "message": "Server Monitoring System Running"
-    }
+    return {"message": "Server Monitoring System Running"}
 
 @app.get("/health")
 def health_check():
-    return {
-        "status": "healthy"
-    }
+    return {"status": "healthy"}
 
 @app.get("/metrics")
 def metrics():
